@@ -1,6 +1,6 @@
 services:
   mongo:
-    image: mongo:7-jammy
+    image: mongo:4.4
     restart: unless-stopped
     environment:
       MONGO_INITDB_DATABASE: mean-chat
@@ -13,10 +13,13 @@ services:
     build:
       context: ./mean-chat-back
     restart: unless-stopped
-    env_file: ./mean-chat-back/.env
     environment:
+      NODE_ENV: production
+      PORT: 3000
       MONGO_URI: mongodb://mongo:27017/mean-chat
       FRONTEND_URL: http://localhost
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
     ports:
       - "3000:3000"
     depends_on:
@@ -27,6 +30,9 @@ services:
   frontend:
     build:
       context: ./mean-chat-front
+      args:
+        GEOAPIFY_API_KEY: ${GEOAPIFY_API_KEY}
+        EMOJI_API_KEY: ${EMOJI_API_KEY}
     restart: unless-stopped
     ports:
       - "80:80"
