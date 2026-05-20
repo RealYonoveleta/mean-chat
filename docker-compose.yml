@@ -1,0 +1,42 @@
+services:
+  mongo:
+    image: mongo:7-jammy
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: mean-chat
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - chat-net
+
+  backend:
+    build:
+      context: ./mean-chat-back
+    restart: unless-stopped
+    env_file: ./mean-chat-back/.env
+    environment:
+      MONGO_URI: mongodb://mongo:27017/mean-chat
+      FRONTEND_URL: http://localhost
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    networks:
+      - chat-net
+
+  frontend:
+    build:
+      context: ./mean-chat-front
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - chat-net
+
+volumes:
+  mongo_data:
+
+networks:
+  chat-net:

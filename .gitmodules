@@ -1,0 +1,6 @@
+[submodule "mean-chat-back"]
+	path = mean-chat-back
+	url = https://github.com/RealYonoveleta/mean-chat-back.git
+[submodule "mean-chat-front"]
+	path = mean-chat-front
+	url = https://github.com/RealYonoveleta/mean-chat-front.git
