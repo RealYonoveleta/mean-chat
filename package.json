@@ -1,9 +1,9 @@
 {
-  "dependencies": {
-    "express-rate-limit": "^8.5.2"
-  },
-  "devDependencies": {
-    "swagger-ui-express": "^5.0.1",
-    "yamljs": "^0.3.0"
+  "name": "mean-chat",
+  "private": true,
+  "scripts": {
+    "dev:back": "npm --prefix mean-chat-back run dev",
+    "dev:front": "npm --prefix mean-chat-front run start",
+    "dev": "start \"backend\" cmd /k \"npm --prefix mean-chat-back run dev\" && start \"frontend\" cmd /k \"npm --prefix mean-chat-front run start\""
   }
 }
