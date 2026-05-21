@@ -93,8 +93,15 @@ Important:
 ## Environment Notes
 
 - Docker backend gets MONGO_URI from docker-compose.yml (mongodb://mongo:27017/mean-chat).
+- JWT auth uses two secrets: JWT_SECRET (access token) and JWT_REFRESH_SECRET (refresh token).
 - Frontend Docker build injects GEOAPIFY_API_KEY and EMOJI_API_KEY into production environment.ts.
 - Angular local dev uses environment.development.ts.
+
+## Authentication Notes
+
+- Access token expires in 1 hour.
+- Refresh token expires in 7 days and is rotated via /auth/refresh.
+- Frontend retries failed 401 requests once after refreshing the token.
 
 ## Current Architecture Notes
 
